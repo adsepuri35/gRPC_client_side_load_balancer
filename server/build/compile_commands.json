@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/root/server/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/root/server/build  -o CMakeFiles/protolib.dir/proto/hello.pb.cc.o -c /root/server/build/proto/hello.pb.cc",
+  "file": "/root/server/build/proto/hello.pb.cc",
+  "output": "CMakeFiles/protolib.dir/proto/hello.pb.cc.o"
+},
+{
+  "directory": "/root/server/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/root/server/build  -o CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.o -c /root/server/build/proto/hello.grpc.pb.cc",
+  "file": "/root/server/build/proto/hello.grpc.pb.cc",
+  "output": "CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.o"
+},
+{
+  "directory": "/root/server/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/root/server/build  -o CMakeFiles/server.dir/src/server.cpp.o -c /root/server/src/server.cpp",
+  "file": "/root/server/src/server.cpp",
+  "output": "CMakeFiles/server.dir/src/server.cpp.o"
+}
+]
