@@ -10,3 +10,5 @@ RUN mkdir -p /deps/grpc/build && cd /deps/grpc/build && \
         -DgRPC_BUILD_TESTS=OFF \
         .. && \
         make -j8 install
+
+WORKDIR /workspace
