@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DCARES_STATICLIB
 
-CXX_INCLUDES = -I/root/server/build
+CXX_INCLUDES = -I/workspace/server/build
 
 CXX_FLAGS = 
 

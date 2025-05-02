@@ -1,16 +1,16 @@
 #include <grpcpp/grpcpp.h>
-#include "proto/hello.grpc.pb.h"
-#include "proto/hello.pb.h"
+#include "proto/order.grpc.pb.h"
+#include "proto/order.pb.h"
 
-class ProcessingImpl : public ProcessingServices::Service {
-    ::grpc::Status computeSum(::grpc::ServerContext* context, const ::Point3* request, ::Numeric* response) {
-        std::cout << "Called!\n";
-        response->set_value(request->x() + request->y() + request->z());        
+class ProcessingImpl : public OrderRouter::Service {
+    ::grpc::Status routeOrder(::grpc::ServerContext* context, const ::Order* request, ::ExecutionReport* response) {
+        std::cout << "Order Received!\n";
+        response->set_order_id(request->order_id());
+        response->set_status(ExecutionReport::FILLED);
+        response->set_total(request->price() * request->quantity());
         return grpc::Status::OK;
     }
 };
-
-//test
 
 int main() {
     ProcessingImpl service;

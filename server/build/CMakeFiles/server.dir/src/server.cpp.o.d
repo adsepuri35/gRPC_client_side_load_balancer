@@ -1,4 +1,4 @@
-CMakeFiles/server.dir/src/server.cpp.o: /root/server/src/server.cpp \
+CMakeFiles/server.dir/src/server.cpp.o: /workspace/server/src/server.cpp \
  /usr/include/stdc-predef.h /usr/local/include/grpcpp/grpcpp.h \
  /usr/local/include/grpc/grpc.h /usr/local/include/grpc/byte_buffer.h \
  /usr/local/include/grpc/impl/grpc_types.h \
@@ -481,8 +481,8 @@ CMakeFiles/server.dir/src/server.cpp.o: /root/server/src/server.cpp \
  /usr/local/include/grpcpp/security/authorization_policy_provider.h \
  /usr/local/include/grpcpp/server_posix.h \
  /usr/local/include/grpcpp/version_info.h \
- /root/server/build/proto/hello.grpc.pb.h \
- /root/server/build/proto/hello.pb.h \
+ /workspace/server/build/proto/order.grpc.pb.h \
+ /workspace/server/build/proto/order.pb.h \
  /usr/local/include/google/protobuf/runtime_version.h \
  /usr/local/include/google/protobuf/io/coded_stream.h \
  /usr/local/include/google/protobuf/endian.h \

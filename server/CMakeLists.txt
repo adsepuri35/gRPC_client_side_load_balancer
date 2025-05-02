@@ -5,7 +5,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 
-add_library(protolib proto/hello.proto)
+add_library(protolib proto/order.proto)
 target_link_libraries(protolib gRPC::grpc++)
 target_include_directories(protolib PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)

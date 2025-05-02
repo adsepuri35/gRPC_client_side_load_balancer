@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/server
+CMAKE_SOURCE_DIR = /workspace/server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/server/build
+CMAKE_BINARY_DIR = /workspace/server/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/server/build/CMakeFiles /root/server/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/server/build/CMakeFiles /workspace/server/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/server/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/server/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -142,53 +142,53 @@ server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-proto/hello.grpc.pb.o: proto/hello.grpc.pb.cc.o
-.PHONY : proto/hello.grpc.pb.o
+proto/order.grpc.pb.o: proto/order.grpc.pb.cc.o
+.PHONY : proto/order.grpc.pb.o
 
 # target to build an object file
-proto/hello.grpc.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.o
-.PHONY : proto/hello.grpc.pb.cc.o
+proto/order.grpc.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/order.grpc.pb.cc.o
+.PHONY : proto/order.grpc.pb.cc.o
 
-proto/hello.grpc.pb.i: proto/hello.grpc.pb.cc.i
-.PHONY : proto/hello.grpc.pb.i
+proto/order.grpc.pb.i: proto/order.grpc.pb.cc.i
+.PHONY : proto/order.grpc.pb.i
 
 # target to preprocess a source file
-proto/hello.grpc.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.i
-.PHONY : proto/hello.grpc.pb.cc.i
+proto/order.grpc.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/order.grpc.pb.cc.i
+.PHONY : proto/order.grpc.pb.cc.i
 
-proto/hello.grpc.pb.s: proto/hello.grpc.pb.cc.s
-.PHONY : proto/hello.grpc.pb.s
+proto/order.grpc.pb.s: proto/order.grpc.pb.cc.s
+.PHONY : proto/order.grpc.pb.s
 
 # target to generate assembly for a file
-proto/hello.grpc.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.s
-.PHONY : proto/hello.grpc.pb.cc.s
+proto/order.grpc.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/order.grpc.pb.cc.s
+.PHONY : proto/order.grpc.pb.cc.s
 
-proto/hello.pb.o: proto/hello.pb.cc.o
-.PHONY : proto/hello.pb.o
+proto/order.pb.o: proto/order.pb.cc.o
+.PHONY : proto/order.pb.o
 
 # target to build an object file
-proto/hello.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/hello.pb.cc.o
-.PHONY : proto/hello.pb.cc.o
+proto/order.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/order.pb.cc.o
+.PHONY : proto/order.pb.cc.o
 
-proto/hello.pb.i: proto/hello.pb.cc.i
-.PHONY : proto/hello.pb.i
+proto/order.pb.i: proto/order.pb.cc.i
+.PHONY : proto/order.pb.i
 
 # target to preprocess a source file
-proto/hello.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/hello.pb.cc.i
-.PHONY : proto/hello.pb.cc.i
+proto/order.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/order.pb.cc.i
+.PHONY : proto/order.pb.cc.i
 
-proto/hello.pb.s: proto/hello.pb.cc.s
-.PHONY : proto/hello.pb.s
+proto/order.pb.s: proto/order.pb.cc.s
+.PHONY : proto/order.pb.s
 
 # target to generate assembly for a file
-proto/hello.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/hello.pb.cc.s
-.PHONY : proto/hello.pb.cc.s
+proto/order.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/protolib.dir/build.make CMakeFiles/protolib.dir/proto/order.pb.cc.s
+.PHONY : proto/order.pb.cc.s
 
 src/server.o: src/server.cpp.o
 .PHONY : src/server.o
@@ -224,12 +224,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... protolib"
 	@echo "... server"
-	@echo "... proto/hello.grpc.pb.o"
-	@echo "... proto/hello.grpc.pb.i"
-	@echo "... proto/hello.grpc.pb.s"
-	@echo "... proto/hello.pb.o"
-	@echo "... proto/hello.pb.i"
-	@echo "... proto/hello.pb.s"
+	@echo "... proto/order.grpc.pb.o"
+	@echo "... proto/order.grpc.pb.i"
+	@echo "... proto/order.grpc.pb.s"
+	@echo "... proto/order.pb.o"
+	@echo "... proto/order.pb.i"
+	@echo "... proto/order.pb.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"

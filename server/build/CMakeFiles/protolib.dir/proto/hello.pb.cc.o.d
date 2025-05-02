@@ -1,6 +1,6 @@
 CMakeFiles/protolib.dir/proto/hello.pb.cc.o: \
- /root/server/build/proto/hello.pb.cc /usr/include/stdc-predef.h \
- /root/server/build/proto/hello.pb.h /usr/include/c++/13/limits \
+ /workspace/server/build/proto/hello.pb.cc /usr/include/stdc-predef.h \
+ /workspace/server/build/proto/hello.pb.h /usr/include/c++/13/limits \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \

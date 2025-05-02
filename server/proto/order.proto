@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+message Order {
+    string order_id = 1;
+    string symbol = 2;
+    enum Side { BUY = 0; SELL = 1; }
+    Side side = 3;
+    double price = 4;
+    int32 quantity = 5;
+}
+
+message ExecutionReport {
+    string order_id = 1;
+    enum Status { FILLED = 0; REJECTED = 1; PARTIALLY_FILLED = 2; }
+    Status status = 2;
+    int32 total = 3;
+}
+
+service OrderRouter {
+    rpc routeOrder(Order) returns (ExecutionReport) {}
+}

@@ -1,6 +1,7 @@
 CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.o: \
- /root/server/build/proto/hello.grpc.pb.cc /usr/include/stdc-predef.h \
- /root/server/build/proto/hello.pb.h /usr/include/c++/13/limits \
+ /workspace/server/build/proto/hello.grpc.pb.cc \
+ /usr/include/stdc-predef.h /workspace/server/build/proto/hello.pb.h \
+ /usr/include/c++/13/limits \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -440,7 +441,7 @@ CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.o: \
  /usr/local/include/google/protobuf/map.h \
  /usr/local/include/google/protobuf/map_type_handler.h \
  /usr/local/include/google/protobuf/reflection.h \
- /root/server/build/proto/hello.grpc.pb.h \
+ /workspace/server/build/proto/hello.grpc.pb.h \
  /usr/local/include/grpcpp/generic/async_generic_service.h \
  /usr/local/include/grpc/support/port_platform.h \
  /usr/include/linux/version.h \

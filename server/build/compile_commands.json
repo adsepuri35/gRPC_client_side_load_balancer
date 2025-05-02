@@ -1,20 +1,20 @@
 [
 {
-  "directory": "/root/server/build",
-  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/root/server/build  -o CMakeFiles/protolib.dir/proto/hello.pb.cc.o -c /root/server/build/proto/hello.pb.cc",
-  "file": "/root/server/build/proto/hello.pb.cc",
-  "output": "CMakeFiles/protolib.dir/proto/hello.pb.cc.o"
+  "directory": "/workspace/server/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/workspace/server/build  -o CMakeFiles/protolib.dir/proto/order.pb.cc.o -c /workspace/server/build/proto/order.pb.cc",
+  "file": "/workspace/server/build/proto/order.pb.cc",
+  "output": "CMakeFiles/protolib.dir/proto/order.pb.cc.o"
 },
 {
-  "directory": "/root/server/build",
-  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/root/server/build  -o CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.o -c /root/server/build/proto/hello.grpc.pb.cc",
-  "file": "/root/server/build/proto/hello.grpc.pb.cc",
-  "output": "CMakeFiles/protolib.dir/proto/hello.grpc.pb.cc.o"
+  "directory": "/workspace/server/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/workspace/server/build  -o CMakeFiles/protolib.dir/proto/order.grpc.pb.cc.o -c /workspace/server/build/proto/order.grpc.pb.cc",
+  "file": "/workspace/server/build/proto/order.grpc.pb.cc",
+  "output": "CMakeFiles/protolib.dir/proto/order.grpc.pb.cc.o"
 },
 {
-  "directory": "/root/server/build",
-  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/root/server/build  -o CMakeFiles/server.dir/src/server.cpp.o -c /root/server/src/server.cpp",
-  "file": "/root/server/src/server.cpp",
+  "directory": "/workspace/server/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/workspace/server/build  -o CMakeFiles/server.dir/src/server.cpp.o -c /workspace/server/src/server.cpp",
+  "file": "/workspace/server/src/server.cpp",
   "output": "CMakeFiles/server.dir/src/server.cpp.o"
 }
 ]
