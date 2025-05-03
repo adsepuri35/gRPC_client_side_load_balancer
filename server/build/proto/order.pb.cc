@@ -30,11 +30,7 @@ inline constexpr Order::Impl_::Impl_(
       : order_id_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
-        symbol_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
         price_{0},
-        side_{static_cast< ::Order_Side >(0)},
         quantity_{0},
         _cached_size_{0} {}
 
@@ -86,7 +82,7 @@ struct ExecutionReportDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExecutionReportDefaultTypeInternal _ExecutionReport_default_instance_;
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_proto_2forder_2eproto[2];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_proto_2forder_2eproto[1];
 static constexpr const ::_pb::ServiceDescriptor**
     file_level_service_descriptors_proto_2forder_2eproto = nullptr;
 const ::uint32_t
@@ -101,8 +97,6 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::Order, _impl_.order_id_),
-        PROTOBUF_FIELD_OFFSET(::Order, _impl_.symbol_),
-        PROTOBUF_FIELD_OFFSET(::Order, _impl_.side_),
         PROTOBUF_FIELD_OFFSET(::Order, _impl_.price_),
         PROTOBUF_FIELD_OFFSET(::Order, _impl_.quantity_),
         ~0u,  // no _has_bits_
@@ -121,7 +115,7 @@ const ::uint32_t
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
         {0, -1, -1, sizeof(::Order)},
-        {13, -1, -1, sizeof(::ExecutionReport)},
+        {11, -1, -1, sizeof(::ExecutionReport)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::_Order_default_instance_._instance,
@@ -129,22 +123,20 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 const char descriptor_table_protodef_proto_2forder_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\021proto/order.proto\"\200\001\n\005Order\022\020\n\010order_i"
-    "d\030\001 \001(\t\022\016\n\006symbol\030\002 \001(\t\022\031\n\004side\030\003 \001(\0162\013."
-    "Order.Side\022\r\n\005price\030\004 \001(\001\022\020\n\010quantity\030\005 "
-    "\001(\005\"\031\n\004Side\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001\"\225\001\n\017Execu"
-    "tionReport\022\020\n\010order_id\030\001 \001(\t\022\'\n\006status\030\002"
-    " \001(\0162\027.ExecutionReport.Status\022\r\n\005total\030\003"
-    " \001(\005\"8\n\006Status\022\n\n\006FILLED\020\000\022\014\n\010REJECTED\020\001"
-    "\022\024\n\020PARTIALLY_FILLED\020\00227\n\013OrderRouter\022(\n"
-    "\nrouteOrder\022\006.Order\032\020.ExecutionReport\"\000b"
-    "\006proto3"
+    "\n\021proto/order.proto\":\n\005Order\022\020\n\010order_id"
+    "\030\001 \001(\t\022\r\n\005price\030\002 \001(\001\022\020\n\010quantity\030\003 \001(\005\""
+    "\225\001\n\017ExecutionReport\022\020\n\010order_id\030\001 \001(\t\022\'\n"
+    "\006status\030\002 \001(\0162\027.ExecutionReport.Status\022\r"
+    "\n\005total\030\003 \001(\005\"8\n\006Status\022\n\n\006FILLED\020\000\022\014\n\010R"
+    "EJECTED\020\001\022\024\n\020PARTIALLY_FILLED\020\00227\n\013Order"
+    "Router\022(\n\nRouteOrder\022\006.Order\032\020.Execution"
+    "Report\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_proto_2forder_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_proto_2forder_2eproto = {
     false,
     false,
-    367,
+    296,
     descriptor_table_protodef_proto_2forder_2eproto,
     "proto/order.proto",
     &descriptor_table_proto_2forder_2eproto_once,
@@ -157,29 +149,9 @@ PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_proto_2forder_
     file_level_enum_descriptors_proto_2forder_2eproto,
     file_level_service_descriptors_proto_2forder_2eproto,
 };
-const ::google::protobuf::EnumDescriptor* Order_Side_descriptor() {
-  ::google::protobuf::internal::AssignDescriptors(&descriptor_table_proto_2forder_2eproto);
-  return file_level_enum_descriptors_proto_2forder_2eproto[0];
-}
-PROTOBUF_CONSTINIT const uint32_t Order_Side_internal_data_[] = {
-    131072u, 0u, };
-bool Order_Side_IsValid(int value) {
-  return 0 <= value && value <= 1;
-}
-#if (__cplusplus < 201703) && \
-  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-
-constexpr Order_Side Order::BUY;
-constexpr Order_Side Order::SELL;
-constexpr Order_Side Order::Side_MIN;
-constexpr Order_Side Order::Side_MAX;
-constexpr int Order::Side_ARRAYSIZE;
-
-#endif  // (__cplusplus < 201703) &&
-        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::google::protobuf::EnumDescriptor* ExecutionReport_Status_descriptor() {
   ::google::protobuf::internal::AssignDescriptors(&descriptor_table_proto_2forder_2eproto);
-  return file_level_enum_descriptors_proto_2forder_2eproto[1];
+  return file_level_enum_descriptors_proto_2forder_2eproto[0];
 }
 PROTOBUF_CONSTINIT const uint32_t ExecutionReport_Status_internal_data_[] = {
     196608u, 0u, };
@@ -217,7 +189,6 @@ inline PROTOBUF_NDEBUG_INLINE Order::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from, const ::Order& from_msg)
       : order_id_(arena, from.order_id_),
-        symbol_(arena, from.symbol_),
         _cached_size_{0} {}
 
 Order::Order(
@@ -247,7 +218,6 @@ inline PROTOBUF_NDEBUG_INLINE Order::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : order_id_(arena),
-        symbol_(arena),
         _cached_size_{0} {}
 
 inline void Order::SharedCtor(::_pb::Arena* arena) {
@@ -268,7 +238,6 @@ inline void Order::SharedDtor(MessageLite& self) {
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
   this_._impl_.order_id_.Destroy();
-  this_._impl_.symbol_.Destroy();
   this_._impl_.~Impl_();
 }
 
@@ -308,15 +277,15 @@ const ::google::protobuf::internal::ClassData* Order::GetClassData() const {
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 5, 0, 28, 2> Order::_table_ = {
+const ::_pbi::TcParseTable<2, 3, 0, 22, 2> Order::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    5, 56,  // max_field_number, fast_idx_mask
+    3, 24,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967264,  // skipmap
+    4294967288,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    5,  // num_field_entries
+    3,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
@@ -330,45 +299,30 @@ const ::_pbi::TcParseTable<3, 5, 0, 28, 2> Order::_table_ = {
     // string order_id = 1;
     {::_pbi::TcParser::FastUS1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(Order, _impl_.order_id_)}},
-    // string symbol = 2;
-    {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(Order, _impl_.symbol_)}},
-    // .Order.Side side = 3;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(Order, _impl_.side_), 63>(),
-     {24, 63, 0, PROTOBUF_FIELD_OFFSET(Order, _impl_.side_)}},
-    // double price = 4;
+    // double price = 2;
     {::_pbi::TcParser::FastF64S1,
-     {33, 63, 0, PROTOBUF_FIELD_OFFSET(Order, _impl_.price_)}},
-    // int32 quantity = 5;
+     {17, 63, 0, PROTOBUF_FIELD_OFFSET(Order, _impl_.price_)}},
+    // int32 quantity = 3;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(Order, _impl_.quantity_), 63>(),
-     {40, 63, 0, PROTOBUF_FIELD_OFFSET(Order, _impl_.quantity_)}},
-    {::_pbi::TcParser::MiniParse, {}},
-    {::_pbi::TcParser::MiniParse, {}},
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(Order, _impl_.quantity_)}},
   }}, {{
     65535, 65535
   }}, {{
     // string order_id = 1;
     {PROTOBUF_FIELD_OFFSET(Order, _impl_.order_id_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // string symbol = 2;
-    {PROTOBUF_FIELD_OFFSET(Order, _impl_.symbol_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // .Order.Side side = 3;
-    {PROTOBUF_FIELD_OFFSET(Order, _impl_.side_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
-    // double price = 4;
+    // double price = 2;
     {PROTOBUF_FIELD_OFFSET(Order, _impl_.price_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
-    // int32 quantity = 5;
+    // int32 quantity = 3;
     {PROTOBUF_FIELD_OFFSET(Order, _impl_.quantity_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
   }},
   // no aux_entries
   {{
-    "\5\10\6\0\0\0\0\0"
+    "\5\10\0\0\0\0\0\0"
     "Order"
     "order_id"
-    "symbol"
   }},
 };
 
@@ -380,7 +334,6 @@ PROTOBUF_NOINLINE void Order::Clear() {
   (void) cached_has_bits;
 
   _impl_.order_id_.ClearToEmpty();
-  _impl_.symbol_.ClearToEmpty();
   ::memset(&_impl_.price_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.quantity_) -
       reinterpret_cast<char*>(&_impl_.price_)) + sizeof(_impl_.quantity_));
@@ -410,32 +363,17 @@ PROTOBUF_NOINLINE void Order::Clear() {
             target = stream->WriteStringMaybeAliased(1, _s, target);
           }
 
-          // string symbol = 2;
-          if (!this_._internal_symbol().empty()) {
-            const std::string& _s = this_._internal_symbol();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "Order.symbol");
-            target = stream->WriteStringMaybeAliased(2, _s, target);
-          }
-
-          // .Order.Side side = 3;
-          if (this_._internal_side() != 0) {
-            target = stream->EnsureSpace(target);
-            target = ::_pbi::WireFormatLite::WriteEnumToArray(
-                3, this_._internal_side(), target);
-          }
-
-          // double price = 4;
+          // double price = 2;
           if (::absl::bit_cast<::uint64_t>(this_._internal_price()) != 0) {
             target = stream->EnsureSpace(target);
             target = ::_pbi::WireFormatLite::WriteDoubleToArray(
-                4, this_._internal_price(), target);
+                2, this_._internal_price(), target);
           }
 
-          // int32 quantity = 5;
+          // int32 quantity = 3;
           if (this_._internal_quantity() != 0) {
             target = ::google::protobuf::internal::WireFormatLite::
-                WriteInt32ToArrayWithField<5>(
+                WriteInt32ToArrayWithField<3>(
                     stream, this_._internal_quantity(), target);
           }
 
@@ -469,21 +407,11 @@ PROTOBUF_NOINLINE void Order::Clear() {
               total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                               this_._internal_order_id());
             }
-            // string symbol = 2;
-            if (!this_._internal_symbol().empty()) {
-              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                              this_._internal_symbol());
-            }
-            // double price = 4;
+            // double price = 2;
             if (::absl::bit_cast<::uint64_t>(this_._internal_price()) != 0) {
               total_size += 9;
             }
-            // .Order.Side side = 3;
-            if (this_._internal_side() != 0) {
-              total_size += 1 +
-                            ::_pbi::WireFormatLite::EnumSize(this_._internal_side());
-            }
-            // int32 quantity = 5;
+            // int32 quantity = 3;
             if (this_._internal_quantity() != 0) {
               total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
                   this_._internal_quantity());
@@ -504,14 +432,8 @@ void Order::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::p
   if (!from._internal_order_id().empty()) {
     _this->_internal_set_order_id(from._internal_order_id());
   }
-  if (!from._internal_symbol().empty()) {
-    _this->_internal_set_symbol(from._internal_symbol());
-  }
   if (::absl::bit_cast<::uint64_t>(from._internal_price()) != 0) {
     _this->_impl_.price_ = from._impl_.price_;
-  }
-  if (from._internal_side() != 0) {
-    _this->_impl_.side_ = from._impl_.side_;
   }
   if (from._internal_quantity() != 0) {
     _this->_impl_.quantity_ = from._impl_.quantity_;
@@ -533,7 +455,6 @@ void Order::InternalSwap(Order* PROTOBUF_RESTRICT other) {
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.order_id_, &other->_impl_.order_id_, arena);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.symbol_, &other->_impl_.symbol_, arena);
   ::google::protobuf::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Order, _impl_.quantity_)
       + sizeof(Order::_impl_.quantity_)

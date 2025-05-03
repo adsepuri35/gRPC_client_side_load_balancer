@@ -21,7 +21,7 @@
 #include <grpcpp/support/sync_stream.h>
 
 static const char* OrderRouter_method_names[] = {
-  "/OrderRouter/routeOrder",
+  "/OrderRouter/RouteOrder",
 };
 
 std::unique_ptr< OrderRouter::Stub> OrderRouter::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -31,28 +31,28 @@ std::unique_ptr< OrderRouter::Stub> OrderRouter::NewStub(const std::shared_ptr< 
 }
 
 OrderRouter::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-  : channel_(channel), rpcmethod_routeOrder_(OrderRouter_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_RouteOrder_(OrderRouter_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status OrderRouter::Stub::routeOrder(::grpc::ClientContext* context, const ::Order& request, ::ExecutionReport* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::Order, ::ExecutionReport, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_routeOrder_, context, request, response);
+::grpc::Status OrderRouter::Stub::RouteOrder(::grpc::ClientContext* context, const ::Order& request, ::ExecutionReport* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::Order, ::ExecutionReport, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RouteOrder_, context, request, response);
 }
 
-void OrderRouter::Stub::async::routeOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::Order, ::ExecutionReport, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_routeOrder_, context, request, response, std::move(f));
+void OrderRouter::Stub::async::RouteOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::Order, ::ExecutionReport, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RouteOrder_, context, request, response, std::move(f));
 }
 
-void OrderRouter::Stub::async::routeOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_routeOrder_, context, request, response, reactor);
+void OrderRouter::Stub::async::RouteOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RouteOrder_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::ExecutionReport>* OrderRouter::Stub::PrepareAsyncrouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::ExecutionReport, ::Order, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_routeOrder_, context, request);
+::grpc::ClientAsyncResponseReader< ::ExecutionReport>* OrderRouter::Stub::PrepareAsyncRouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::ExecutionReport, ::Order, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RouteOrder_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::ExecutionReport>* OrderRouter::Stub::AsyncrouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::ExecutionReport>* OrderRouter::Stub::AsyncRouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncrouteOrderRaw(context, request, cq);
+    this->PrepareAsyncRouteOrderRaw(context, request, cq);
   result->StartCall();
   return result;
 }
@@ -66,14 +66,14 @@ OrderRouter::Service::Service() {
              ::grpc::ServerContext* ctx,
              const ::Order* req,
              ::ExecutionReport* resp) {
-               return service->routeOrder(ctx, req, resp);
+               return service->RouteOrder(ctx, req, resp);
              }, this)));
 }
 
 OrderRouter::Service::~Service() {
 }
 
-::grpc::Status OrderRouter::Service::routeOrder(::grpc::ServerContext* context, const ::Order* request, ::ExecutionReport* response) {
+::grpc::Status OrderRouter::Service::RouteOrder(::grpc::ServerContext* context, const ::Order* request, ::ExecutionReport* response) {
   (void) context;
   (void) request;
   (void) response;

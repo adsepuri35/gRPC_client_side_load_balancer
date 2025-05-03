@@ -34,41 +34,41 @@ class OrderRouter final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status routeOrder(::grpc::ClientContext* context, const ::Order& request, ::ExecutionReport* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>> AsyncrouteOrder(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>>(AsyncrouteOrderRaw(context, request, cq));
+    virtual ::grpc::Status RouteOrder(::grpc::ClientContext* context, const ::Order& request, ::ExecutionReport* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>> AsyncRouteOrder(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>>(AsyncRouteOrderRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>> PrepareAsyncrouteOrder(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>>(PrepareAsyncrouteOrderRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>> PrepareAsyncRouteOrder(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>>(PrepareAsyncRouteOrderRaw(context, request, cq));
     }
     class async_interface {
      public:
       virtual ~async_interface() {}
-      virtual void routeOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void routeOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void RouteOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RouteOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>* AsyncrouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>* PrepareAsyncrouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>* AsyncRouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ExecutionReport>* PrepareAsyncRouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status routeOrder(::grpc::ClientContext* context, const ::Order& request, ::ExecutionReport* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ExecutionReport>> AsyncrouteOrder(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ExecutionReport>>(AsyncrouteOrderRaw(context, request, cq));
+    ::grpc::Status RouteOrder(::grpc::ClientContext* context, const ::Order& request, ::ExecutionReport* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ExecutionReport>> AsyncRouteOrder(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ExecutionReport>>(AsyncRouteOrderRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ExecutionReport>> PrepareAsyncrouteOrder(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ExecutionReport>>(PrepareAsyncrouteOrderRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ExecutionReport>> PrepareAsyncRouteOrder(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ExecutionReport>>(PrepareAsyncRouteOrderRaw(context, request, cq));
     }
     class async final :
       public StubInterface::async_interface {
      public:
-      void routeOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, std::function<void(::grpc::Status)>) override;
-      void routeOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void RouteOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, std::function<void(::grpc::Status)>) override;
+      void RouteOrder(::grpc::ClientContext* context, const ::Order* request, ::ExecutionReport* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -80,9 +80,9 @@ class OrderRouter final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::ExecutionReport>* AsyncrouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::ExecutionReport>* PrepareAsyncrouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) override;
-    const ::grpc::internal::RpcMethod rpcmethod_routeOrder_;
+    ::grpc::ClientAsyncResponseReader< ::ExecutionReport>* AsyncRouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ExecutionReport>* PrepareAsyncRouteOrderRaw(::grpc::ClientContext* context, const ::Order& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_RouteOrder_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -90,147 +90,147 @@ class OrderRouter final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status routeOrder(::grpc::ServerContext* context, const ::Order* request, ::ExecutionReport* response);
+    virtual ::grpc::Status RouteOrder(::grpc::ServerContext* context, const ::Order* request, ::ExecutionReport* response);
   };
   template <class BaseClass>
-  class WithAsyncMethod_routeOrder : public BaseClass {
+  class WithAsyncMethod_RouteOrder : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_routeOrder() {
+    WithAsyncMethod_RouteOrder() {
       ::grpc::Service::MarkMethodAsync(0);
     }
-    ~WithAsyncMethod_routeOrder() override {
+    ~WithAsyncMethod_RouteOrder() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status routeOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
+    ::grpc::Status RouteOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestrouteOrder(::grpc::ServerContext* context, ::Order* request, ::grpc::ServerAsyncResponseWriter< ::ExecutionReport>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestRouteOrder(::grpc::ServerContext* context, ::Order* request, ::grpc::ServerAsyncResponseWriter< ::ExecutionReport>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_routeOrder<Service > AsyncService;
+  typedef WithAsyncMethod_RouteOrder<Service > AsyncService;
   template <class BaseClass>
-  class WithCallbackMethod_routeOrder : public BaseClass {
+  class WithCallbackMethod_RouteOrder : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_routeOrder() {
+    WithCallbackMethod_RouteOrder() {
       ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::Order, ::ExecutionReport>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::Order* request, ::ExecutionReport* response) { return this->routeOrder(context, request, response); }));}
-    void SetMessageAllocatorFor_routeOrder(
+                   ::grpc::CallbackServerContext* context, const ::Order* request, ::ExecutionReport* response) { return this->RouteOrder(context, request, response); }));}
+    void SetMessageAllocatorFor_RouteOrder(
         ::grpc::MessageAllocator< ::Order, ::ExecutionReport>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::Order, ::ExecutionReport>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_routeOrder() override {
+    ~WithCallbackMethod_RouteOrder() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status routeOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
+    ::grpc::Status RouteOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* routeOrder(
+    virtual ::grpc::ServerUnaryReactor* RouteOrder(
       ::grpc::CallbackServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_routeOrder<Service > CallbackService;
+  typedef WithCallbackMethod_RouteOrder<Service > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
-  class WithGenericMethod_routeOrder : public BaseClass {
+  class WithGenericMethod_RouteOrder : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_routeOrder() {
+    WithGenericMethod_RouteOrder() {
       ::grpc::Service::MarkMethodGeneric(0);
     }
-    ~WithGenericMethod_routeOrder() override {
+    ~WithGenericMethod_RouteOrder() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status routeOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
+    ::grpc::Status RouteOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithRawMethod_routeOrder : public BaseClass {
+  class WithRawMethod_RouteOrder : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_routeOrder() {
+    WithRawMethod_RouteOrder() {
       ::grpc::Service::MarkMethodRaw(0);
     }
-    ~WithRawMethod_routeOrder() override {
+    ~WithRawMethod_RouteOrder() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status routeOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
+    ::grpc::Status RouteOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestrouteOrder(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestRouteOrder(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_routeOrder : public BaseClass {
+  class WithRawCallbackMethod_RouteOrder : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_routeOrder() {
+    WithRawCallbackMethod_RouteOrder() {
       ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->routeOrder(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RouteOrder(context, request, response); }));
     }
-    ~WithRawCallbackMethod_routeOrder() override {
+    ~WithRawCallbackMethod_RouteOrder() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status routeOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
+    ::grpc::Status RouteOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* routeOrder(
+    virtual ::grpc::ServerUnaryReactor* RouteOrder(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_routeOrder : public BaseClass {
+  class WithStreamedUnaryMethod_RouteOrder : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_routeOrder() {
+    WithStreamedUnaryMethod_RouteOrder() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
           ::Order, ::ExecutionReport>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
                      ::Order, ::ExecutionReport>* streamer) {
-                       return this->StreamedrouteOrder(context,
+                       return this->StreamedRouteOrder(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_routeOrder() override {
+    ~WithStreamedUnaryMethod_RouteOrder() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status routeOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
+    ::grpc::Status RouteOrder(::grpc::ServerContext* /*context*/, const ::Order* /*request*/, ::ExecutionReport* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedrouteOrder(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Order,::ExecutionReport>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedRouteOrder(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Order,::ExecutionReport>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_routeOrder<Service > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_RouteOrder<Service > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_routeOrder<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_RouteOrder<Service > StreamedService;
 };
 
 

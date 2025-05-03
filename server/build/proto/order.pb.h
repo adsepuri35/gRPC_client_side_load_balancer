@@ -63,39 +63,6 @@ namespace protobuf {
 }  // namespace protobuf
 }  // namespace google
 
-enum Order_Side : int {
-  Order_Side_BUY = 0,
-  Order_Side_SELL = 1,
-  Order_Side_Order_Side_INT_MIN_SENTINEL_DO_NOT_USE_ =
-      std::numeric_limits<::int32_t>::min(),
-  Order_Side_Order_Side_INT_MAX_SENTINEL_DO_NOT_USE_ =
-      std::numeric_limits<::int32_t>::max(),
-};
-
-bool Order_Side_IsValid(int value);
-extern const uint32_t Order_Side_internal_data_[];
-constexpr Order_Side Order_Side_Side_MIN = static_cast<Order_Side>(0);
-constexpr Order_Side Order_Side_Side_MAX = static_cast<Order_Side>(1);
-constexpr int Order_Side_Side_ARRAYSIZE = 1 + 1;
-const ::google::protobuf::EnumDescriptor*
-Order_Side_descriptor();
-template <typename T>
-const std::string& Order_Side_Name(T value) {
-  static_assert(std::is_same<T, Order_Side>::value ||
-                    std::is_integral<T>::value,
-                "Incorrect type passed to Side_Name().");
-  return Order_Side_Name(static_cast<Order_Side>(value));
-}
-template <>
-inline const std::string& Order_Side_Name(Order_Side value) {
-  return ::google::protobuf::internal::NameOfDenseEnum<Order_Side_descriptor,
-                                                 0, 1>(
-      static_cast<int>(value));
-}
-inline bool Order_Side_Parse(absl::string_view name, Order_Side* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Order_Side>(
-      Order_Side_descriptor(), name, value);
-}
 enum ExecutionReport_Status : int {
   ExecutionReport_Status_FILLED = 0,
   ExecutionReport_Status_REJECTED = 1,
@@ -280,33 +247,12 @@ class Order final
  public:
   ::google::protobuf::Metadata GetMetadata() const;
   // nested types ----------------------------------------------------
-  using Side = Order_Side;
-  static constexpr Side BUY = Order_Side_BUY;
-  static constexpr Side SELL = Order_Side_SELL;
-  static inline bool Side_IsValid(int value) {
-    return Order_Side_IsValid(value);
-  }
-  static constexpr Side Side_MIN = Order_Side_Side_MIN;
-  static constexpr Side Side_MAX = Order_Side_Side_MAX;
-  static constexpr int Side_ARRAYSIZE = Order_Side_Side_ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor* Side_descriptor() {
-    return Order_Side_descriptor();
-  }
-  template <typename T>
-  static inline const std::string& Side_Name(T value) {
-    return Order_Side_Name(value);
-  }
-  static inline bool Side_Parse(absl::string_view name, Side* value) {
-    return Order_Side_Parse(name, value);
-  }
 
   // accessors -------------------------------------------------------
   enum : int {
     kOrderIdFieldNumber = 1,
-    kSymbolFieldNumber = 2,
-    kPriceFieldNumber = 4,
-    kSideFieldNumber = 3,
-    kQuantityFieldNumber = 5,
+    kPriceFieldNumber = 2,
+    kQuantityFieldNumber = 3,
   };
   // string order_id = 1;
   void clear_order_id() ;
@@ -324,23 +270,7 @@ class Order final
   std::string* _internal_mutable_order_id();
 
   public:
-  // string symbol = 2;
-  void clear_symbol() ;
-  const std::string& symbol() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_symbol(Arg_&& arg, Args_... args);
-  std::string* mutable_symbol();
-  PROTOBUF_NODISCARD std::string* release_symbol();
-  void set_allocated_symbol(std::string* value);
-
-  private:
-  const std::string& _internal_symbol() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_symbol(
-      const std::string& value);
-  std::string* _internal_mutable_symbol();
-
-  public:
-  // double price = 4;
+  // double price = 2;
   void clear_price() ;
   double price() const;
   void set_price(double value);
@@ -350,17 +280,7 @@ class Order final
   void _internal_set_price(double value);
 
   public:
-  // .Order.Side side = 3;
-  void clear_side() ;
-  ::Order_Side side() const;
-  void set_side(::Order_Side value);
-
-  private:
-  ::Order_Side _internal_side() const;
-  void _internal_set_side(::Order_Side value);
-
-  public:
-  // int32 quantity = 5;
+  // int32 quantity = 3;
   void clear_quantity() ;
   ::int32_t quantity() const;
   void set_quantity(::int32_t value);
@@ -375,8 +295,8 @@ class Order final
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      3, 5, 0,
-      28, 2>
+      2, 3, 0,
+      22, 2>
       _table_;
 
   friend class ::google::protobuf::MessageLite;
@@ -394,9 +314,7 @@ class Order final
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const Order& from_msg);
     ::google::protobuf::internal::ArenaStringPtr order_id_;
-    ::google::protobuf::internal::ArenaStringPtr symbol_;
     double price_;
-    int side_;
     ::int32_t quantity_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -710,77 +628,7 @@ inline void Order::set_allocated_order_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:Order.order_id)
 }
 
-// string symbol = 2;
-inline void Order::clear_symbol() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.symbol_.ClearToEmpty();
-}
-inline const std::string& Order::symbol() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:Order.symbol)
-  return _internal_symbol();
-}
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void Order::set_symbol(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.symbol_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:Order.symbol)
-}
-inline std::string* Order::mutable_symbol() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_symbol();
-  // @@protoc_insertion_point(field_mutable:Order.symbol)
-  return _s;
-}
-inline const std::string& Order::_internal_symbol() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.symbol_.Get();
-}
-inline void Order::_internal_set_symbol(const std::string& value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.symbol_.Set(value, GetArena());
-}
-inline std::string* Order::_internal_mutable_symbol() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.symbol_.Mutable( GetArena());
-}
-inline std::string* Order::release_symbol() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:Order.symbol)
-  return _impl_.symbol_.Release();
-}
-inline void Order::set_allocated_symbol(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.symbol_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.symbol_.IsDefault()) {
-    _impl_.symbol_.Set("", GetArena());
-  }
-  // @@protoc_insertion_point(field_set_allocated:Order.symbol)
-}
-
-// .Order.Side side = 3;
-inline void Order::clear_side() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.side_ = 0;
-}
-inline ::Order_Side Order::side() const {
-  // @@protoc_insertion_point(field_get:Order.side)
-  return _internal_side();
-}
-inline void Order::set_side(::Order_Side value) {
-  _internal_set_side(value);
-  // @@protoc_insertion_point(field_set:Order.side)
-}
-inline ::Order_Side Order::_internal_side() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return static_cast<::Order_Side>(_impl_.side_);
-}
-inline void Order::_internal_set_side(::Order_Side value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.side_ = value;
-}
-
-// double price = 4;
+// double price = 2;
 inline void Order::clear_price() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.price_ = 0;
@@ -802,7 +650,7 @@ inline void Order::_internal_set_price(double value) {
   _impl_.price_ = value;
 }
 
-// int32 quantity = 5;
+// int32 quantity = 3;
 inline void Order::clear_quantity() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.quantity_ = 0;
@@ -930,12 +778,6 @@ inline void ExecutionReport::_internal_set_total(::int32_t value) {
 namespace google {
 namespace protobuf {
 
-template <>
-struct is_proto_enum<::Order_Side> : std::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor<::Order_Side>() {
-  return ::Order_Side_descriptor();
-}
 template <>
 struct is_proto_enum<::ExecutionReport_Status> : std::true_type {};
 template <>

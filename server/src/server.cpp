@@ -3,7 +3,7 @@
 #include "proto/order.pb.h"
 
 class ProcessingImpl : public OrderRouter::Service {
-    ::grpc::Status routeOrder(::grpc::ServerContext* context, const ::Order* request, ::ExecutionReport* response) {
+    ::grpc::Status RouteOrder(::grpc::ServerContext* context, const ::Order* request, ::ExecutionReport* response) {
         std::cout << "Order Received!\n";
         response->set_order_id(request->order_id());
         response->set_status(ExecutionReport::FILLED);
