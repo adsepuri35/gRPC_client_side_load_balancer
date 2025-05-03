@@ -33,25 +33,24 @@
 // }
 
 int main() {
-    std::vector<std::string> gateway_addresses = {"localhost:50052"};
+    std::vector<std::string> gateway_addresses = {"localhost:50052", "localhost:50053", "localhost:50054"};
     LoadBalancer lb(gateway_addresses);
 
-    Order order1;
-    order1.set_order_id("1");
-    order1.set_price(100.0);
-    order1.set_quantity(3);
+    for (int i = 1; i <= 10; i++) {
+        Order currOrder;
+        currOrder.set_order_id(std::to_string(i));
+        currOrder.set_price(100.90);
+        currOrder.set_quantity(3);
 
-    ExecutionReport report;
+        ExecutionReport currReport;
 
-    grpc::Status status = lb.RouteOrder(order1, &report);
+        grpc::Status currStatus = lb.RouteOrder(currOrder, &currReport);
 
-    if (status.ok()) {
-        std::cout << "Order routed successfully!\n";
-        std::cout << "Order ID: " << report.order_id() << "\n";
-        std::cout << "Status: " << report.status() << "\n";
-        std::cout << "Total: " << report.total() << "\n";
-    } else {
-        std::cerr << "Failed to route order: " << status.error_message() << "\n";
+        if (currStatus.ok()) {
+            std::cout << "Order " << currReport.order_id() << " routed successfully" << "\n";
+        } else {
+            std::cerr << "Failed to route order: " << i << " " << currStatus.error_message() << "\n";
+        }
     }
 
     return 0;

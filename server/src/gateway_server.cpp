@@ -16,16 +16,24 @@ class GatewayServiceImpl final : public OrderRouter::Service {
 int main() {
     GatewayServiceImpl service;
 
-    grpc::EnableDefaultHealthCheckService(true);
+    grpc::ServerBuilder builder1, builder2, builder3;
+    builder1.AddListeningPort("0.0.0.0:50052", grpc::InsecureServerCredentials());
+    builder2.AddListeningPort("0.0.0.0:50053", grpc::InsecureServerCredentials());
+    builder3.AddListeningPort("0.0.0.0:50054", grpc::InsecureServerCredentials());
 
-    grpc::ServerBuilder builder;
-    builder.AddListeningPort("0.0.0.0:50052", grpc::InsecureServerCredentials());
-    builder.RegisterService(&service);
+    builder1.RegisterService(&service);
+    builder2.RegisterService(&service);
+    builder3.RegisterService(&service);
 
-    std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
-    std::cout << "Gateway server is running on 0.0.0.0:50052" << std::endl;
+    auto server1 = builder1.BuildAndStart();
+    auto server2 = builder2.BuildAndStart();
+    auto server3 = builder3.BuildAndStart();
 
-    server->Wait();
+    std::cout << "Gateway servers are running on ports 50052, 50053, 50054" << std::endl;
+
+    server1->Wait();
+    server2->Wait();
+    server3->Wait();
 
     return 0;
 

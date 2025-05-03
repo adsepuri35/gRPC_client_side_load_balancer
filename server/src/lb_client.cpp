@@ -4,6 +4,7 @@
 #include <grpcpp/health_check_service_interface.h>
 
 #include "lb_client.h"
+#include <iostream>
 
 LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
     for (const auto& address : gateway_addresses) {
@@ -31,6 +32,8 @@ grpc::Status LoadBalancer::RouteOrder(const Order& order, ExecutionReport* repor
     context.set_deadline(std::chrono::system_clock::now() + std::chrono::milliseconds(100));
 
     grpc::Status status = stub->RouteOrder(&context, order, report);
+
+    std::cout << "Used channel: " << channel << "\n";
     
     // add to failure count
 
