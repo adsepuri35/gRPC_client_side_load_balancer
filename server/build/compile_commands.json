@@ -22,5 +22,17 @@
   "command": "/usr/bin/c++ -DCARES_STATICLIB -I/workspace/server/build  -o CMakeFiles/client.dir/src/client.cpp.o -c /workspace/server/src/client.cpp",
   "file": "/workspace/server/src/client.cpp",
   "output": "CMakeFiles/client.dir/src/client.cpp.o"
+},
+{
+  "directory": "/workspace/server/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/workspace/server/build  -o CMakeFiles/client.dir/src/lb_client.cpp.o -c /workspace/server/src/lb_client.cpp",
+  "file": "/workspace/server/src/lb_client.cpp",
+  "output": "CMakeFiles/client.dir/src/lb_client.cpp.o"
+},
+{
+  "directory": "/workspace/server/build",
+  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/workspace/server/build  -o CMakeFiles/gateway_server.dir/src/gateway_server.cpp.o -c /workspace/server/src/gateway_server.cpp",
+  "file": "/workspace/server/src/gateway_server.cpp",
+  "output": "CMakeFiles/gateway_server.dir/src/gateway_server.cpp.o"
 }
 ]

@@ -155,6 +155,19 @@ client/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
 .PHONY : client/fast
 
+#=============================================================================
+# Target rules for targets named gateway_server
+
+# Build rule for target.
+gateway_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gateway_server
+.PHONY : gateway_server
+
+# fast build rule for target.
+gateway_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_server.dir/build.make CMakeFiles/gateway_server.dir/build
+.PHONY : gateway_server/fast
+
 proto/order.grpc.pb.o: proto/order.grpc.pb.cc.o
 .PHONY : proto/order.grpc.pb.o
 
@@ -227,6 +240,54 @@ src/client.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/client.cpp.s
 .PHONY : src/client.cpp.s
 
+src/gateway_server.o: src/gateway_server.cpp.o
+.PHONY : src/gateway_server.o
+
+# target to build an object file
+src/gateway_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_server.dir/build.make CMakeFiles/gateway_server.dir/src/gateway_server.cpp.o
+.PHONY : src/gateway_server.cpp.o
+
+src/gateway_server.i: src/gateway_server.cpp.i
+.PHONY : src/gateway_server.i
+
+# target to preprocess a source file
+src/gateway_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_server.dir/build.make CMakeFiles/gateway_server.dir/src/gateway_server.cpp.i
+.PHONY : src/gateway_server.cpp.i
+
+src/gateway_server.s: src/gateway_server.cpp.s
+.PHONY : src/gateway_server.s
+
+# target to generate assembly for a file
+src/gateway_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_server.dir/build.make CMakeFiles/gateway_server.dir/src/gateway_server.cpp.s
+.PHONY : src/gateway_server.cpp.s
+
+src/lb_client.o: src/lb_client.cpp.o
+.PHONY : src/lb_client.o
+
+# target to build an object file
+src/lb_client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/lb_client.cpp.o
+.PHONY : src/lb_client.cpp.o
+
+src/lb_client.i: src/lb_client.cpp.i
+.PHONY : src/lb_client.i
+
+# target to preprocess a source file
+src/lb_client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/lb_client.cpp.i
+.PHONY : src/lb_client.cpp.i
+
+src/lb_client.s: src/lb_client.cpp.s
+.PHONY : src/lb_client.s
+
+# target to generate assembly for a file
+src/lb_client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/lb_client.cpp.s
+.PHONY : src/lb_client.cpp.s
+
 src/server.o: src/server.cpp.o
 .PHONY : src/server.o
 
@@ -260,6 +321,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... client"
+	@echo "... gateway_server"
 	@echo "... protolib"
 	@echo "... server"
 	@echo "... proto/order.grpc.pb.o"
@@ -271,6 +333,12 @@ help:
 	@echo "... src/client.o"
 	@echo "... src/client.i"
 	@echo "... src/client.s"
+	@echo "... src/gateway_server.o"
+	@echo "... src/gateway_server.i"
+	@echo "... src/gateway_server.s"
+	@echo "... src/lb_client.o"
+	@echo "... src/lb_client.i"
+	@echo "... src/lb_client.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"

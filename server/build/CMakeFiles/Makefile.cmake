@@ -75,4 +75,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/protolib.dir/DependInfo.cmake"
   "CMakeFiles/server.dir/DependInfo.cmake"
   "CMakeFiles/client.dir/DependInfo.cmake"
+  "CMakeFiles/gateway_server.dir/DependInfo.cmake"
   )

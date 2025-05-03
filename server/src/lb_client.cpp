@@ -1,6 +1,7 @@
 #include <grpcpp/grpcpp.h>
 #include "proto/order.grpc.pb.h"
 #include "proto/order.pb.h"
+#include <grpcpp/health_check_service_interface.h>
 
 #include "lb_client.h"
 
@@ -14,19 +15,45 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
     }
 }
 
-grpc::Status RouteOrder(const Order& order, ExecutionReport* report) {
+
+grpc::Status LoadBalancer::RouteOrder(const Order& order, ExecutionReport* report) {
     auto channel = selectChannel();
     if (!channel) {
         return grpc::Status(grpc::StatusCode::UNAVAILABLE, "No healthy gateways available");
     }
 
-    grpc::ClientContext context;
+    
 
+    size_t index = std::distance(channels_.begin(), std::find(channels_.begin(), channels_.end(), channel));
+    auto& stub = stubs_[index];
+
+    grpc::ClientContext context;
+    context.set_deadline(std::chrono::system_clock::now() + std::chrono::milliseconds(100));
+
+    grpc::Status status = stub->RouteOrder(&context, order, report);
+    
+    // add to failure count
+
+    return status;
 }
 
 
-//implement
-std::shared_ptr<grpc::Channel> selectChannel() {
+std::shared_ptr<grpc::Channel> LoadBalancer::selectChannel() {
+    size_t attempts = 0;
+    while (attempts < channels_.size()) {
+        current_gateway_ = (current_gateway_ + 1) % channels_.size();
+        auto channel = channels_[current_gateway_];
+        
+        if (isHealthy(channel)) {
+            return channel;
+        }
 
+        attempts++;
+    }
+    return nullptr;
 };
 
+//implement
+bool LoadBalancer::isHealthy(const std::shared_ptr<grpc::Channel>& channel) {
+    return true;
+};

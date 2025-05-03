@@ -19,6 +19,11 @@ add_executable(server src/server.cpp)
 target_link_libraries(server protolib)
 
 # Add the client executable
-add_executable(client src/client.cpp)
+add_executable(client src/client.cpp src/lb_client.cpp)
 target_include_directories(client PUBLIC ${CMAKE_CURRENT_BINARY_DIR}) # Include generated Protobuf files
 target_link_libraries(client protolib) # Link the Protobuf library
+
+# Add the gateway server executable
+add_executable(gateway_server src/gateway_server.cpp)
+target_include_directories(gateway_server PUBLIC ${CMAKE_CURRENT_BINARY_DIR}) # Include generated Protobuf files
+target_link_libraries(gateway_server protolib) # Link the Protobuf library
