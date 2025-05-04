@@ -55,15 +55,20 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
     grpc::ClientContext context;
     context.set_deadline(std::chrono::system_clock::now() + std::chrono::milliseconds(10));
 
-    seeChannelState(channel, index);
+    // seeChannelState(channel, index);
 
     grpc::Status status = stub->RouteOrder(&context, order, report);
 
-    seeChannelState(channel, index);
-
-    channel_freq_[gateway_addresses_[index]]++;
+    // seeChannelState(channel, index);
     
     // add to failure count
+    if (status.ok()) {
+        channel_freq_[gateway_addresses_[index]]++;
+    } else {
+        failure_counts_[gateway_addresses_[index]]++;
+        std::cerr << "Failed to route order to " << gateway_addresses_[index]
+                  << ": " << status.error_message() << "\n";
+    }
 
     return status;
 }
