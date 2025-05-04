@@ -9,6 +9,7 @@ class GatewayServiceImpl final : public OrderRouter::Service {
             report->set_order_id(order->order_id());
             report->set_status(ExecutionReport::FILLED);
             report->set_total(order->price() * order->quantity());
+            std::cout << "Order " << report->order_id() << " received and processed\n";
             return grpc::Status::OK;
         }
 };

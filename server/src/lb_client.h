@@ -7,6 +7,7 @@ public:
   LoadBalancer(const std::vector<std::string>& gateway_addresses);
   ::grpc::Status RouteOrder(const Order& order, ExecutionReport* report);
   void channelUseFrequency();
+  void seeChannelState(const std::shared_ptr<grpc::Channel>& channel, size_t index);
 
 private:
   std::vector<std::shared_ptr<grpc::Channel>> channels_;
