@@ -16,8 +16,6 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
         auto deadline = std::chrono::system_clock::now() + std::chrono::seconds(1);
         currChannel->WaitForStateChange(state, deadline);
 
-
-
         channels_.push_back(currChannel);
         stubs_.push_back(OrderRouter::NewStub(currChannel));
 
@@ -55,11 +53,15 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
     grpc::ClientContext context;
     context.set_deadline(std::chrono::system_clock::now() + std::chrono::milliseconds(10));
 
-    // seeChannelState(channel, index);
+    auto start_time = std::chrono::high_resolution_clock::now();
 
     grpc::Status status = stub->RouteOrder(&context, order, report);
 
-    // seeChannelState(channel, index);
+    //calc latency
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto latency = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+    // std::cout << "Latency for routing order to " << gateway_addresses_[index] << ": " << latency << " ms\n";
+    latency_records_[gateway_addresses_[index]].push_back(latency);
     
     // add to failure count
     if (status.ok()) {
@@ -131,5 +133,17 @@ void LoadBalancer::seeChannelState(const std::shared_ptr<grpc::Channel>& channel
         default:
             std::cout << "Unknown channel state\n";
             break;
+    }
+}
+
+void LoadBalancer::printAverageLatencies() {
+    for (const auto& kvpair : latency_records_) {
+        const auto& latencies = kvpair.second;
+        long total_latency = std::accumulate(latencies.begin(), latencies.end(), 0L);
+        double average_latency = static_cast<double>(total_latency) / latencies.size();
+
+        std::cout << "Gateway: " << kvpair.first
+                  << ", Average Latency: " << average_latency << " ms"
+                  << ", Total Requests: " << latencies.size() << "\n";
     }
 }

@@ -12,7 +12,7 @@ int main() {
     for (int i = 1; i <= 10; i++) {
         Order currOrder;
         currOrder.set_order_id(std::to_string(i));
-        currOrder.set_price(100.90);
+        currOrder.set_price(100.00);
         currOrder.set_quantity(3);
 
         ExecutionReport currReport;
@@ -25,6 +25,8 @@ int main() {
             std::cerr << "Failed to route order: " << i << " " << currStatus.error_message() << "\n";
         }
     }
+
+    lb.printAverageLatencies();
 
     // lb.channelUseFrequency();
 

@@ -8,6 +8,7 @@ public:
   ::grpc::Status RouteOrder(const Order& order, ExecutionReport* report);
   void channelUseFrequency();
   void seeChannelState(const std::shared_ptr<grpc::Channel>& channel, size_t index);
+  void printAverageLatencies();
 
 private:
   std::vector<std::shared_ptr<grpc::Channel>> channels_;
@@ -16,6 +17,7 @@ private:
   size_t current_gateway_ = 0;
   std::unordered_map<std::string, int> failure_counts_;
   std::unordered_map<std::string, int> channel_freq_;
+  std::unordered_map<std::string, std::vector<long>> latency_records_;
 
 
   std::shared_ptr<grpc::Channel> selectChannel();
