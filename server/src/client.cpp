@@ -53,5 +53,7 @@ int main() {
         }
     }
 
+    lb.channelUseFrequency();
+
     return 0;
 }

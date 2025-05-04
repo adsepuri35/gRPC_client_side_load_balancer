@@ -7,23 +7,21 @@
 #include <iostream>
 
 LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
+    gateway_addresses_ = gateway_addresses;
     for (const auto& address : gateway_addresses) {
         auto currChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials()); //change to secure later
 
         channels_.push_back(currChannel);
         stubs_.push_back(OrderRouter::NewStub(currChannel));
-
     }
 }
 
 
-grpc::Status LoadBalancer::RouteOrder(const Order& order, ExecutionReport* report) {
+::grpc::Status LoadBalancer::RouteOrder(const Order& order, ExecutionReport* report) {
     auto channel = selectChannel();
     if (!channel) {
         return grpc::Status(grpc::StatusCode::UNAVAILABLE, "No healthy gateways available");
     }
-
-    
 
     size_t index = std::distance(channels_.begin(), std::find(channels_.begin(), channels_.end(), channel));
     auto& stub = stubs_[index];
@@ -34,6 +32,7 @@ grpc::Status LoadBalancer::RouteOrder(const Order& order, ExecutionReport* repor
     grpc::Status status = stub->RouteOrder(&context, order, report);
 
     std::cout << "Used channel: " << channel << "\n";
+    channel_freq_[gateway_addresses_[index]]++;
     
     // add to failure count
 
@@ -60,3 +59,9 @@ std::shared_ptr<grpc::Channel> LoadBalancer::selectChannel() {
 bool LoadBalancer::isHealthy(const std::shared_ptr<grpc::Channel>& channel) {
     return true;
 };
+
+void LoadBalancer::channelUseFrequency() {
+    for (auto kvpair : channel_freq_) {
+        std::cout << kvpair.first << " : " << kvpair.second << "\n";
+    }
+}
