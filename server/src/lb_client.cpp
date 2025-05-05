@@ -6,10 +6,20 @@
 #include "lb_client.h"
 #include <iostream>
 
-LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
+LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, std::vector<std::string> exchange_names) {
     gateway_addresses_ = gateway_addresses;
-    for (const auto& address : gateway_addresses) {
-        auto currChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials()); //change to secure later
+    exchange_names_ = exchange_names;
+    for (size_t i = 0; i < gateway_addresses.size(); i++) {
+        exchange_to_channel_map_[exchange_names[i]] = i;
+
+        // keep servers warm
+        grpc::ChannelArguments channelArgs;
+        channelArgs.SetInt(GRPC_ARG_KEEPALIVE_TIME_MS, 10000);
+        channelArgs.SetInt(GRPC_ARG_KEEPALIVE_TIMEOUT_MS, 5000);
+        channelArgs.SetInt(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, 1);
+        channelArgs.SetInt(GRPC_ARG_HTTP2_MAX_PINGS_WITHOUT_DATA, 0);
+
+        auto currChannel = grpc::CreateCustomChannel(gateway_addresses[i], grpc::InsecureChannelCredentials(), channelArgs); //change to secure later
 
         // warm up channels from initial IDLE state
         grpc_connectivity_state state = currChannel->GetState(true);
@@ -33,16 +43,23 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
         grpc::Status status = stub->RouteOrder(&context, dummyOrder, &dummyReport);
 
         if (status.ok()) {
-            std::cout << "Dummy order sent successfully to " << address << "\n";
+            std::cout << "Dummy order sent successfully to " << gateway_addresses[i] << "\n";
         } else {
-            std::cerr << "Failed to send dummy order to " << address << ": " << status.error_message() << "\n";
+            std::cerr << "Failed to send dummy order to " << gateway_addresses[i] << ": " << status.error_message() << "\n";
         }
     }
 }
 
 
 ::grpc::Status LoadBalancer::RouteOrder(const Order& order, ExecutionReport* report) {
-    auto channel = selectChannel();
+    std::shared_ptr<grpc::Channel> channel;
+    if (order.exchange_id() != "") {
+        channel = forceGateway(order.exchange_id());
+    } else {
+        // LB policy
+        channel = selectRoundRobin();
+    }
+    
     if (!channel) {
         return grpc::Status(grpc::StatusCode::UNAVAILABLE, "No healthy gateways available");
     }
@@ -76,7 +93,24 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses) {
 }
 
 
-std::shared_ptr<grpc::Channel> LoadBalancer::selectChannel() {
+std::shared_ptr<grpc::Channel> LoadBalancer::forceGateway(const std::string exchange_id) {
+    auto it = exchange_to_channel_map_.find(exchange_id);
+    if (it != exchange_to_channel_map_.end()) {
+        size_t index = it->second;
+
+        if (isHealthy(channels_[index])) {
+            return channels_[index];
+        } else {
+            std::cerr << "Gateway for exchange " << exchange_id << " is unhealthy\n";
+            return nullptr;
+        }
+    }
+    
+    std::cerr << "No gateway found for exchange " << exchange_id << "\n";
+    return nullptr;
+}
+
+std::shared_ptr<grpc::Channel> LoadBalancer::selectRoundRobin() {
     size_t attempts = 0;
     while (attempts < channels_.size()) {
         current_gateway_ = (current_gateway_ + 1) % channels_.size();
@@ -89,8 +123,7 @@ std::shared_ptr<grpc::Channel> LoadBalancer::selectChannel() {
         attempts++;
     }
     return nullptr;
-};
-
+}
 
 bool LoadBalancer::isHealthy(const std::shared_ptr<grpc::Channel>& channel) {
     grpc_connectivity_state state = channel->GetState(true);

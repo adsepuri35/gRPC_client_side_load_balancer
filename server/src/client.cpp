@@ -7,13 +7,15 @@
 
 int main() {
     std::vector<std::string> gateway_addresses = {"localhost:50052", "localhost:50053", "localhost:50054"};
-    LoadBalancer lb(gateway_addresses);
+    std::vector<std::string> exchange_names = {"Binance", "Coinbase", "Kraken"};
+    LoadBalancer lb(gateway_addresses, exchange_names);
 
     for (int i = 1; i <= 10; i++) {
         Order currOrder;
         currOrder.set_order_id(std::to_string(i));
         currOrder.set_price(100.00);
         currOrder.set_quantity(3);
+        // currOrder.set_exchange_id("Coinbase");
 
         ExecutionReport currReport;
 

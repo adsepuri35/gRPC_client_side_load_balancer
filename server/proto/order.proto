@@ -1,16 +1,62 @@
 syntax = "proto3";
 
+enum Side {
+    BUY = 0;
+    SELL = 1;
+}
+
+enum OrderType {
+    MARKET = 0;
+    LIMIT = 1;
+    STOP = 2;
+    STOP_LIMIT = 3;
+}
+
+enum TimeInForce {
+    GOOD_TILL_CANCEL = 0;
+    IMMEDIATE_OR_CANCEL = 1;
+    FILL_OR_KILL = 2;
+    DAY = 3;
+}
+
 message Order {
     string order_id = 1;
-    double price = 2;
-    int32 quantity = 3;
+    string symbol = 2;
+    Side side = 3;
+    OrderType order_type = 4;
+    double price = 5;
+    double stop_price = 6;
+    int32 quantity = 7;
+    TimeInForce time_in_force = 8;
+    string account_id = 9;          // who placed order
+    int64 timestamp = 10;
+    string exchange_id = 11;
+}
+
+enum ExecutionType {
+    NEW = 0;
+    PARTIAL_FILL = 1;
+    FILL = 2;
+    CANCELLED = 3;
+    REJECTED = 4;
+    EXPIRED = 5;
 }
 
 message ExecutionReport {
     string order_id = 1;
-    enum Status { FILLED = 0; REJECTED = 1; PARTIALLY_FILLED = 2; }
-    Status status = 2;
-    int32 total = 3;
+    string execution_id = 2;
+    ExecutionType execution_type = 3;
+    string symbol = 4;
+    Side side = 5;
+    double executed_price = 6;
+    int32 executed_quantity = 7;
+    int32 remaining_quantity = 8;
+    double average_price = 9;    // for partial fills
+    string reject_reason = 10;    // if rejected
+    int64 timestamp = 11;
+    string exchange_id = 12;
+    double commission = 13;
+    string additional_info = 14;
 }
 
 service OrderRouter {

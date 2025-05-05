@@ -6,8 +6,8 @@ class ProcessingImpl : public OrderRouter::Service {
     ::grpc::Status RouteOrder(::grpc::ServerContext* context, const ::Order* request, ::ExecutionReport* response) {
         std::cout << "Order Received!\n";
         response->set_order_id(request->order_id());
-        response->set_status(ExecutionReport::FILLED);
-        response->set_total(request->price() * request->quantity());
+        // response->set_status(ExecutionReport::FILLED);
+        // response->set_total(request->price() * request->quantity());
         return grpc::Status::OK;
     }
 };
