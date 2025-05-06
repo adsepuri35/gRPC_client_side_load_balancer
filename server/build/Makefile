@@ -130,19 +130,6 @@ protolib/fast:
 .PHONY : protolib/fast
 
 #=============================================================================
-# Target rules for targets named server
-
-# Build rule for target.
-server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server
-.PHONY : server
-
-# fast build rule for target.
-server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
-.PHONY : server/fast
-
-#=============================================================================
 # Target rules for targets named client
 
 # Build rule for target.
@@ -288,30 +275,6 @@ src/lb_client.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/lb_client.cpp.s
 .PHONY : src/lb_client.cpp.s
 
-src/server.o: src/server.cpp.o
-.PHONY : src/server.o
-
-# target to build an object file
-src/server.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server.cpp.o
-.PHONY : src/server.cpp.o
-
-src/server.i: src/server.cpp.i
-.PHONY : src/server.i
-
-# target to preprocess a source file
-src/server.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server.cpp.i
-.PHONY : src/server.cpp.i
-
-src/server.s: src/server.cpp.s
-.PHONY : src/server.s
-
-# target to generate assembly for a file
-src/server.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server.cpp.s
-.PHONY : src/server.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -323,7 +286,6 @@ help:
 	@echo "... client"
 	@echo "... gateway_server"
 	@echo "... protolib"
-	@echo "... server"
 	@echo "... proto/order.grpc.pb.o"
 	@echo "... proto/order.grpc.pb.i"
 	@echo "... proto/order.grpc.pb.s"
@@ -339,9 +301,6 @@ help:
 	@echo "... src/lb_client.o"
 	@echo "... src/lb_client.i"
 	@echo "... src/lb_client.s"
-	@echo "... src/server.o"
-	@echo "... src/server.i"
-	@echo "... src/server.s"
 .PHONY : help
 
 

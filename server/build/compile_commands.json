@@ -13,12 +13,6 @@
 },
 {
   "directory": "/workspace/server/build",
-  "command": "/usr/bin/c++ -DCARES_STATICLIB -I/workspace/server/build  -o CMakeFiles/server.dir/src/server.cpp.o -c /workspace/server/src/server.cpp",
-  "file": "/workspace/server/src/server.cpp",
-  "output": "CMakeFiles/server.dir/src/server.cpp.o"
-},
-{
-  "directory": "/workspace/server/build",
   "command": "/usr/bin/c++ -DCARES_STATICLIB -I/workspace/server/build  -o CMakeFiles/client.dir/src/client.cpp.o -c /workspace/server/src/client.cpp",
   "file": "/workspace/server/src/client.cpp",
   "output": "CMakeFiles/client.dir/src/client.cpp.o"

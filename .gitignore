@@ -1,0 +1,45 @@
+# Build files
+/build/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Compiled object files
+*.o
+*.obj
+*.lo
+*.la
+
+# Executable files
+*.exe
+*.out
+*.app
+client
+gateway_server
+
+# gRPC and Protocol Buffers generated files
+*.pb.cc
+*.pb.h
+*.grpc.pb.cc
+*.grpc.pb.h
+
+# Logs and debugging files
+*.log
+*.trace
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*.bak
+*.~*
+
+# IDE-specific files
+.vscode/
+.idea/
+*.iml
+
+# System files
+.DS_Store
+Thumbs.db
