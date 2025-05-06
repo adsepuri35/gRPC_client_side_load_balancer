@@ -32,6 +32,8 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, st
 
         connection_queue_.push({gateway_addresses[i], currChannel, 0});
 
+        latency_queue_.push({gateway_addresses[i], currChannel, 999999.0});
+
         // send dummy order to warm up channel
         Order dummyOrder;
         dummyOrder.set_order_id("dummy");
@@ -88,6 +90,13 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, st
 
     auto latency = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
     latency_records_[gateway_addresses_[index]].push_back(latency);
+
+    long total_latency = std::accumulate(
+        latency_records_[gateway_addresses_[index]].begin(),
+        latency_records_[gateway_addresses_[index]].end(),
+        0L
+    );
+    double average_latency = static_cast<double>(total_latency) / latency_records_[gateway_addresses_[index]].size();
     
     // add to failure count
     if (status.ok()) {
@@ -192,7 +201,7 @@ void LoadBalancer::printAverageLatencies() {
 
 std::shared_ptr<grpc::Channel> LoadBalancer::selectLeastConnections() {
     while (!connection_queue_.empty()) {
-        GatewayInfo top = connection_queue_.top();
+        GatewayInfoConnections top = connection_queue_.top();
         connection_queue_.pop();
 
         if (isHealthy(top.channel)) {
@@ -204,10 +213,10 @@ std::shared_ptr<grpc::Channel> LoadBalancer::selectLeastConnections() {
 }
 
 void LoadBalancer::updateConnections(const std::string& address, int delta) {
-    std::priority_queue<GatewayInfo, std::vector<GatewayInfo>, std::greater<>> new_queue;
+    std::priority_queue<GatewayInfoConnections, std::vector<GatewayInfoConnections>, std::greater<>> new_queue;
 
     while (!connection_queue_.empty()) {
-        GatewayInfo top = connection_queue_.top();
+        GatewayInfoConnections top = connection_queue_.top();
         connection_queue_.pop();
 
         if (top.address == address) {
@@ -221,5 +230,29 @@ void LoadBalancer::updateConnections(const std::string& address, int delta) {
 }
 
 std::shared_ptr<grpc::Channel> LoadBalancer::selectLowestLatency() {
-    return channels_[0];
+    while (!latency_queue_.empty()) {
+        GatewayInfoLatency top = latency_queue_.top();
+        latency_queue_.pop();
+
+        if (isHealthy(top.channel)) {
+            latency_queue_.push(top);
+            return top.channel;
+        }
+    }
+    return nullptr;
+}
+
+void LoadBalancer::updateLatency(const std::string& address, double new_latency) {
+    std::priority_queue<GatewayInfoLatency, std::vector<GatewayInfoLatency>, std::greater<>> temp_queue;
+    while (!latency_queue_.empty()) {
+        GatewayInfoLatency top = latency_queue_.top();
+        latency_queue_.pop();
+
+        if (top.address == address) {
+            top.avg_latency = new_latency;
+        }
+
+        temp_queue.push(top);
+    }
+    latency_queue_ = std::move(temp_queue);
 }

@@ -9,14 +9,25 @@ enum LoadBalancingPolicy {
   LowestLatency
 };
 
-struct GatewayInfo {
+struct GatewayInfoConnections {
   std::string address;
   std::shared_ptr<grpc::Channel> channel;
   size_t active_connections;
 
-  // Custom comparator for priority queue (min-heap)
-  bool operator>(const GatewayInfo& other) const {
+  // minheap
+  bool operator>(const GatewayInfoConnections& other) const {
       return active_connections > other.active_connections;
+  }
+};
+
+struct GatewayInfoLatency {
+  std::string address;
+  std::shared_ptr<grpc::Channel> channel;
+  double avg_latency;
+
+  // minheap
+  bool operator>(const GatewayInfoLatency& other) const {
+      return avg_latency > other.avg_latency;
   }
 };
 
@@ -42,7 +53,8 @@ private:
   std::unordered_map<std::string, int> channel_freq_;
   std::unordered_map<std::string, std::vector<long>> latency_records_;
   std::unordered_map<std::string, size_t> exchange_to_channel_map_;
-  std::priority_queue<GatewayInfo, std::vector<GatewayInfo>, std::greater<>> connection_queue_;
+  std::priority_queue<GatewayInfoConnections, std::vector<GatewayInfoConnections>, std::greater<>> connection_queue_;
+  std::priority_queue<GatewayInfoLatency, std::vector<GatewayInfoLatency>, std::greater<>> latency_queue_;
   std::unordered_map<std::string, size_t> active_connections_;
 
   std::shared_ptr<grpc::Channel> forceGateway(const std::string exchange_id);
@@ -51,4 +63,5 @@ private:
   std::shared_ptr<grpc::Channel> selectLowestLatency();
   bool isHealthy(const std::shared_ptr<grpc::Channel>& channel);
   void updateConnections(const std::string& address, int delta);
+  void updateLatency(const std::string& address, double new_latency);
 };

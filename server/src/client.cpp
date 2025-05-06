@@ -10,9 +10,9 @@ int main() {
     std::vector<std::string> exchange_names = {"Binance", "Coinbase", "Kraken"};
     LoadBalancer lb(gateway_addresses, exchange_names);
 
-    lb.setPolicy(LeastConnections);
+    lb.setPolicy(LowestLatency);
 
-    for (int i = 1; i <= 10; i++) {
+    for (int i = 1; i <= 500; i++) {
         Order currOrder;
         currOrder.set_order_id(std::to_string(i));
         currOrder.set_price(100.00);
