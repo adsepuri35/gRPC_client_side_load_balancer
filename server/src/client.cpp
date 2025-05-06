@@ -30,7 +30,9 @@ int main() {
         }
     }
 
-    lb.printAverageLatencies();
+    // lb.printAverageLatencies();
+
+    lb.printLatencyPercentiles();
 
     // lb.channelUseFrequency();
 

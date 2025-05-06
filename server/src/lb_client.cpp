@@ -5,6 +5,7 @@
 
 #include "lb_client.h"
 #include <iostream>
+#include <algorithm>
 
 LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, std::vector<std::string> exchange_names) {
     gateway_addresses_ = gateway_addresses;
@@ -255,4 +256,35 @@ void LoadBalancer::updateLatency(const std::string& address, double new_latency)
         temp_queue.push(top);
     }
     latency_queue_ = std::move(temp_queue);
+}
+
+void LoadBalancer::printLatencyPercentiles() {
+    for (const auto& kvpair : latency_records_) {
+        const auto& latencies = kvpair.second;
+
+        if (latencies.empty()) {
+            std::cout << "Gateway: " << kvpair.first << " has no latency data.\n";
+            continue;
+        }
+
+        // Sort the latencies to calculate percentiles
+        std::vector<long> sorted_latencies = latencies;
+        std::sort(sorted_latencies.begin(), sorted_latencies.end());
+
+        // Calculate P50 (median)
+        size_t mid_index = sorted_latencies.size() / 2;
+        double p50 = sorted_latencies.size() % 2 == 0
+                         ? (sorted_latencies[mid_index - 1] + sorted_latencies[mid_index]) / 2.0
+                         : sorted_latencies[mid_index];
+
+        // Calculate P99
+        size_t p99_index = static_cast<size_t>(sorted_latencies.size() * 0.99) - 1;
+        double p99 = sorted_latencies[std::min(p99_index, sorted_latencies.size() - 1)];
+
+        // Print the results
+        std::cout << "Gateway: " << kvpair.first
+                  << ", P50 Latency: " << p50 << " ms"
+                  << ", P99 Latency: " << p99 << " ms"
+                  << ", Total Requests: " << latencies.size() << "\n";
+    }
 }

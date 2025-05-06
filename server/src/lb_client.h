@@ -38,6 +38,7 @@ public:
   void channelUseFrequency();
   void seeChannelState(const std::shared_ptr<grpc::Channel>& channel, size_t index);
   void printAverageLatencies();
+  void printLatencyPercentiles();
   void setPolicy(LoadBalancingPolicy policy) {
     current_policy_ = policy;
   }
