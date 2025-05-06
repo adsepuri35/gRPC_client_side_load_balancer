@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-d6b6d5c1deff99f554b26610c97d41e0 proto/order.grpc.pb.h
-ca137c58d24e0e7eb3571bcea5729e2a proto/order.pb.h

@@ -1,5 +1,0 @@
-/workspace/server/build/CMakeFiles/protolib.dir
-/workspace/server/build/CMakeFiles/client.dir
-/workspace/server/build/CMakeFiles/gateway_server.dir
-/workspace/server/build/CMakeFiles/edit_cache.dir
-/workspace/server/build/CMakeFiles/rebuild_cache.dir
