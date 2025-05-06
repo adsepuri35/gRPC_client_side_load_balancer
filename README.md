@@ -51,9 +51,9 @@ The load balancer tracks request latencies for each gateway and calculates key l
 
 ### **Example Output**
 ```plaintext
-Gateway: localhost:50052, P50 Latency: 10 ms, P99 Latency: 50 ms, Total Requests: 200
-Gateway: localhost:50053, P50 Latency: 12 ms, P99 Latency: 55 ms, Total Requests: 150
-Gateway: localhost:50054, P50 Latency: 15 ms, P99 Latency: 60 ms, Total Requests: 150
+Gateway: localhost:50052, P50 Latency: 2.5 ms, P99 Latency: 4.15 ms, Total Requests: 200
+Gateway: localhost:50053, P50 Latency: 2.65 ms, P99 Latency: 4.90 ms, Total Requests: 150
+Gateway: localhost:50054, P50 Latency: 2.14 ms, P99 Latency: 3.98 ms, Total Requests: 150
 ```
 
 ### **How to Run the Benchmark**
