@@ -59,9 +59,13 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, st
     if (order.exchange_id() != "") {
         channel = forceGateway(order.exchange_id());
     } else {
-        // LB policy
-        // channel = selectRoundRobin();
-        channel = selectLeastConnections();
+        if (current_policy_ == RoundRobin) {
+            channel = selectRoundRobin();
+        } else if (current_policy_ == LeastConnections) {
+            channel = selectLeastConnections();
+        } else if (current_policy_ == LowestLatency) {
+            channel = selectLowestLatency();
+        }
     }
     
     if (!channel) {
@@ -214,4 +218,8 @@ void LoadBalancer::updateConnections(const std::string& address, int delta) {
     }
 
     connection_queue_ = std::move(new_queue);
+}
+
+std::shared_ptr<grpc::Channel> LoadBalancer::selectLowestLatency() {
+    return channels_[0];
 }

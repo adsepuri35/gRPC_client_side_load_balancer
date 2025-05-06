@@ -3,6 +3,12 @@
 #include "proto/order.pb.h"
 #include <queue>
 
+enum LoadBalancingPolicy {
+  RoundRobin,
+  LeastConnections,
+  LowestLatency
+};
+
 struct GatewayInfo {
   std::string address;
   std::shared_ptr<grpc::Channel> channel;
@@ -21,8 +27,12 @@ public:
   void channelUseFrequency();
   void seeChannelState(const std::shared_ptr<grpc::Channel>& channel, size_t index);
   void printAverageLatencies();
+  void setPolicy(LoadBalancingPolicy policy) {
+    current_policy_ = policy;
+  }
 
 private:
+  LoadBalancingPolicy current_policy_ = LoadBalancingPolicy::RoundRobin;
   std::vector<std::shared_ptr<grpc::Channel>> channels_;
   std::vector<std::unique_ptr<OrderRouter::Stub>> stubs_;
   std::vector<std::string> gateway_addresses_;
@@ -37,8 +47,8 @@ private:
 
   std::shared_ptr<grpc::Channel> forceGateway(const std::string exchange_id);
   std::shared_ptr<grpc::Channel> selectRoundRobin();
-  std::shared_ptr<grpc::Channel> selectLowestLatency();
   std::shared_ptr<grpc::Channel> selectLeastConnections();
+  std::shared_ptr<grpc::Channel> selectLowestLatency();
   bool isHealthy(const std::shared_ptr<grpc::Channel>& channel);
   void updateConnections(const std::string& address, int delta);
 };

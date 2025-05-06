@@ -10,13 +10,15 @@ int main() {
     std::vector<std::string> exchange_names = {"Binance", "Coinbase", "Kraken"};
     LoadBalancer lb(gateway_addresses, exchange_names);
 
+    lb.setPolicy(LeastConnections);
+
     for (int i = 1; i <= 10; i++) {
         Order currOrder;
         currOrder.set_order_id(std::to_string(i));
         currOrder.set_price(100.00);
         currOrder.set_quantity(3);
         // currOrder.set_exchange_id("Coinbase");
-
+        
         ExecutionReport currReport;
 
         grpc::Status currStatus = lb.RouteOrder(currOrder, &currReport);
