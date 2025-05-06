@@ -11,6 +11,7 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, st
     exchange_names_ = exchange_names;
     for (size_t i = 0; i < gateway_addresses.size(); i++) {
         exchange_to_channel_map_[exchange_names[i]] = i;
+        active_connections_[gateway_addresses[i]] = 0;
 
         // keep servers warm
         grpc::ChannelArguments channelArgs;
@@ -28,6 +29,8 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, st
 
         channels_.push_back(currChannel);
         stubs_.push_back(OrderRouter::NewStub(currChannel));
+
+        connection_queue_.push({gateway_addresses[i], currChannel, 0});
 
         // send dummy order to warm up channel
         Order dummyOrder;
@@ -57,7 +60,8 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, st
         channel = forceGateway(order.exchange_id());
     } else {
         // LB policy
-        channel = selectRoundRobin();
+        // channel = selectRoundRobin();
+        channel = selectLeastConnections();
     }
     
     if (!channel) {
@@ -67,17 +71,18 @@ LoadBalancer::LoadBalancer(const std::vector<std::string>& gateway_addresses, st
     size_t index = std::distance(channels_.begin(), std::find(channels_.begin(), channels_.end(), channel));
     auto& stub = stubs_[index];
 
+    updateConnections(gateway_addresses_[index], 1);
+
     grpc::ClientContext context;
     context.set_deadline(std::chrono::system_clock::now() + std::chrono::milliseconds(10));
 
     auto start_time = std::chrono::high_resolution_clock::now();
-
     grpc::Status status = stub->RouteOrder(&context, order, report);
-
-    //calc latency
     auto end_time = std::chrono::high_resolution_clock::now();
+
+    updateConnections(gateway_addresses_[index], -1);
+
     auto latency = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
-    // std::cout << "Latency for routing order to " << gateway_addresses_[index] << ": " << latency << " ms\n";
     latency_records_[gateway_addresses_[index]].push_back(latency);
     
     // add to failure count
@@ -179,4 +184,34 @@ void LoadBalancer::printAverageLatencies() {
                   << ", Average Latency: " << average_latency << " ms"
                   << ", Total Requests: " << latencies.size() << "\n";
     }
+}
+
+std::shared_ptr<grpc::Channel> LoadBalancer::selectLeastConnections() {
+    while (!connection_queue_.empty()) {
+        GatewayInfo top = connection_queue_.top();
+        connection_queue_.pop();
+
+        if (isHealthy(top.channel)) {
+            connection_queue_.push(top);
+            return top.channel;
+        }
+    }
+    return nullptr;
+}
+
+void LoadBalancer::updateConnections(const std::string& address, int delta) {
+    std::priority_queue<GatewayInfo, std::vector<GatewayInfo>, std::greater<>> new_queue;
+
+    while (!connection_queue_.empty()) {
+        GatewayInfo top = connection_queue_.top();
+        connection_queue_.pop();
+
+        if (top.address == address) {
+            top.active_connections += delta;
+        }
+
+        new_queue.push(top);
+    }
+
+    connection_queue_ = std::move(new_queue);
 }
